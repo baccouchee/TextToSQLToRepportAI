@@ -1,11 +1,13 @@
+from dotenv import load_dotenv
 import os
 import gradio as gr
 import psycopg2
 import openai
 import pandas as pd
 
-# Configuration API OpenAI
-openai.api_key = "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"
+load_dotenv()
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.api_base = "https://openrouter.ai/api/v1"
 
 # Configuration PostgreSQL
