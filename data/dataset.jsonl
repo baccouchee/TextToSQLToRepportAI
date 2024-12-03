@@ -1,0 +1,60 @@
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les artistes ayant vendu le plus de titres  "}
+{"role":"assistant","content":[{"Name":"Iron Maiden"}]}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les clients ayant effectu\u00e9 le plus d'achats  "}
+{"role":"assistant","content":[{"CustomerId":1,"FirstName":"Lu\u00eds","LastName":"Gon\u00e7alves","Company":"Embraer - Empresa Brasileira de Aeron\u00e1utica S.A.","Address":"Av. Brigadeiro Faria Lima, 2170","City":"S\u00e3o Jos\u00e9 dos Campos","State":"SP","Country":"Brazil","PostalCode":"12227-000","Phone":"+55 (12) 3923-5555","Fax":"+55 (12) 3923-5566","Email":"luisg@embraer.com.br","SupportRepId":3}]}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quel est le genre musical le plus populaire  "}
+{"role":"assistant","content":[{"Name":"Rock"}]}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quel est le titre le plus long  "}
+{"role":"assistant","content":[{"Title":"Tchaikovsky: 1812 Festival Overture, Op.49, Capriccio Italien & Beethoven: Wellington's Victory"}]}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quel est le titre le plus court  "}
+{"role":"assistant","content":[{"Title":"IV"}]}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les albums les plus vendus  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les clients les plus fid\u00e8les  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quel est le montant total des ventes pour chaque ann\u00e9e  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les employ\u00e9s ayant le plus de clients attribu\u00e9s  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quel est le nombre moyen de titres par album  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les genres musicaux les moins populaires  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les clients ayant d\u00e9pens\u00e9 le plus d'argent  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quel est le titre le plus cher  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quel est le titre le moins cher  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les albums les moins vendus  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les clients les moins fid\u00e8les  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quel est le montant total des ventes pour chaque mois  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les employ\u00e9s ayant le moins de clients attribu\u00e9s  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quel est le nombre moyen de titres par playlist  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}
+{"role":"system","content":"Vous etes un assistant SQL expert."}
+{"role":"user","content":" Quels sont les genres musicaux les plus populaires parmi les clients  "}
+{"role":"assistant","content":"Erreur SQL : \"Erreur\"\u307e\u305f\u306f\u305d\u306e\u8fd1\u8fba\u3067\u69cb\u6587\u30a8\u30e9\u30fc\nLINE 1: Erreur lors de la g\u00e9n\u00e9ration de l'explication : Rate limit r...\n        ^\n"}

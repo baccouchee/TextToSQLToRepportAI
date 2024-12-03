@@ -7,8 +7,10 @@ import pandas as pd
 
 load_dotenv()
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_base = "https://openrouter.ai/api/v1"
+openai.api_key = "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"
+openai.api_base = "https://api.groq.com/openai/v1"
+
+print(openai.api_key)
 
 # Configuration PostgreSQL
 DATABASE = {
@@ -18,6 +20,7 @@ DATABASE = {
     'host': 'localhost',
     'port': 5432
 }
+
 
 # Prompt générique pour le modèle
 generic_prompt = """Le schéma est public, et les tables sont :
@@ -101,6 +104,47 @@ def connect_to_postgres():
     except psycopg2.Error as e:
         return f"Erreur de connexion PostgreSQL : {e}"
 
+def generate_question_based_on_db_modele():
+    """Génère des questions basées sur le schéma de la base de données."""
+    prompt = f"""
+    Vous êtes un expert SQL et en language humain, spécialisé dans la génération de questions pertinentes pour explorer une base de données. Posez des questions en langage naturel sur les données de la base de données fournie.
+
+    {generic_prompt}
+
+    Directives :  
+    - Formulez des questions en français, claires et concises, pour explorer les données de la base de données.
+    - Utilisez un langage naturel et accessible, sans jargon technique.
+    - Posez des questions variées pour couvrir différents aspects des données, comme un analyste curieux et perspicace le ferait.
+    - Une fois sur 5, posez une question bizarre qui n'as pas de rapport avec la base de données.
+
+    NB : J'ai besoin de 25 questions sous forme de tableau pour pouvoir générer un dataset.
+    NB : Retourne moi seulement le tableau avec 25 questions et rien d'autre.
+    NB : Ne me mens pas
+
+    exemple de output : ["Quels sont les artistes ayant vendu le plus de titres ?", "Quels sont les clients ayant effectué le plus d'achats ?", "Quel est le genre musical le plus populaire ?", "Quel est le titre le plus long ?", "Quel est le titre le plus court ?"]
+
+    """
+
+    try:
+        # Appel à l'API OpenAI
+        response = openai.ChatCompletion.create(
+            model="llama-3.1-70b-versatile",
+            messages=[
+                {"role": "system", "content": "Vous êtes un assistant SQL expert et en language humain."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.1,
+            top_p=0.1
+        )
+
+        # Extraction de la réponse
+        questions = response.choices[0].message.content.strip().split('\n')
+        return questions
+
+    except Exception as e:
+        # Gestion des erreurs
+        return f"Une erreur est survenue : {e}"
+
 def process_question_to_sql(requete):
     prompt = f"""
     Vous êtes un assistant SQL expert. Répondez uniquement avec la requête SQL en syntaxe PostgreSQL, en veillant à ce que tous les noms de tables et de colonnes soient entre guillemets doubles et sensibles à la casse.
@@ -124,7 +168,7 @@ def process_question_to_sql(requete):
     """
     try:
         response = openai.ChatCompletion.create(
-            model="meta-llama/llama-3.1-8b-instruct:free",
+            model="llama-3.1-70b-versatile",
             messages=[
                 {"role": "system", "content": "Vous êtes un assistant SQL expert."},
                 {"role": "user", "content": prompt}
@@ -142,7 +186,6 @@ def process_question_to_sql(requete):
         return f"Erreur lors de la génération de l'explication : {str(e)}"
     except Exception as e:
         return f"Erreur lors de la génération SQL : {str(e)}"
-
 
 
 def execute_sql_query(sql_query):
@@ -188,7 +231,7 @@ def generate_report_from_result(result):
     try:
         # Appel à l'API OpenAI
         response = openai.ChatCompletion.create(
-            model="meta-llama/llama-3.1-8b-instruct:free",
+            model="llama-3.1-70b-versatile",
             messages=[
                 {"role": "system", "content": "Vous êtes un assistant SQL expert."},
                 {"role": "user", "content": prompt}
@@ -205,10 +248,13 @@ def generate_report_from_result(result):
         # Gestion des erreurs
         return f"Une erreur est survenue : {e}"
 
-
-def process_user_query(requete):
-    """Gère l'ensemble du flux : génération SQL, exécution et rapport."""
-    sql_query = process_question_to_sql(requete)
+def process_user_query():
+    """Gère l'ensemble du flux : Génération question, génération SQL, exécution et rapport."""
+    # Génération de la question
+    question = generate_question_based_on_db_modele()
+    print(question)
+    
+    sql_query = process_question_to_sql(question)
     if "Erreur" in sql_query:
         return sql_query, None, None
 
@@ -218,30 +264,39 @@ def process_user_query(requete):
         return sql_query,report , result
     return sql_query, result, None
 
-# Interface Gradio
-iface = gr.Interface(
-    fn=process_user_query,
-    inputs=gr.Textbox(lines=2, placeholder="Exemple : Listez tous les noms des artistes."),
-    outputs=[
-        gr.Textbox(label="Requête SQL générée", lines=3),
-        gr.Textbox(label="Rapport détaillé", lines=3),
-        gr.DataFrame(label="Résultat de la requête"),
 
-    ],
-    title="Assistant SQL avec OpenAI",
-    description=(
-        "Posez une question en langage naturel, et l'outil générera une requête SQL exécutée sur une base PostgreSQL. "
-        "Les résultats et un rapport détaillé seront affichés."
-    ),
-    examples=[
-        ["Lister tous les noms des artistes."],
-        ["Lister tous les titres des albums."],
-        ["Obtenir tous les clients vivant en France."],
-        ["Quelles sont les dernières ventes effectuées ?"],
-        ["Combien de pistes sont disponibles dans chaque playlist ?"],
-    ],
-    theme="Soft"
-)
+#Fonction pour generer un dataset sous le format jsonl a partir des different fonction (Génération question, génération SQL, exécution et rapport.) exp : [ { "role": "system", "content": "You are a SQL expert assistant. Generate clear, efficient SQL queries based on user requests. Provide only the SQL query without any additional text or explanation." }, { "role": "user", "content": "Using a database with tables 'customers' (columns: customer_id, name, email) and 'orders' (columns: order_id, customer_id, order_date, total_amount), show me all customers who have spent more than $1000 in total." }, { "role": "assistant", "content": "SELECT c.customer_id, c.name, c.email, SUM(o.total_amount) as total_spent FROM customers c INNER JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.name, c.email HAVING SUM(o.total_amount) > 1000 ORDER BY total_spent DESC;" } ]
+def generate_dataset(questions):
+    dataset = []
+    if isinstance(questions, list):
+        # Loop into questions
+        #start from 1 to 20
+        for i in range(2, 22):
+            sql_query = process_question_to_sql(questions[i])
+            result = execute_sql_query(sql_query)
+            entries = [
+                {"role": "system", "content": "Vous etes un assistant SQL expert."},
+                {"role": "user", "content": questions[i]},
+                {"role": "assistant", "content": result}
+            ]
+            dataset.extend(entries)
+    else:
+        print("Erreur : La fonction generate_question_based_on_db_modele n'a pas retourné une liste.")
+
+    return dataset
 
 if __name__ == "__main__":
-    iface.launch()
+    # Génération du dataset
+    questions = generate_question_based_on_db_modele()
+    print(questions)
+    #output of questions : ['| Questions |', '| --- |', '| Quels sont les artistes ayant vendu le plus de titres ? |', "| Quels sont les clients ayant effectué le plus d'achats ? |", '| Quel est le genre musical le plus populaire ? |', '| Quel est le titre le plus long ? |', '| Quel est le titre le plus court ? |', '| Quels sont les albums les plus vendus ? |', '| Quels sont les clients les plus fidèles ? |', '| Quel est le montant total des ventes pour chaque année ? |', '| Quels sont les employés ayant le plus de clients attribués ? |', '| Quel est le titre le plus écouté dans les playlists ? |', '| Quels sont les genres musicaux les moins populaires ? |', '| Quels sont les albums les moins vendus ? |', '| Quel est le montant moyen des achats par client ? |', "| Quels sont les clients ayant dépensé le plus d'argent ? |", '| Quel est le titre le plus cher ? |', '| Quels sont les employés ayant travaillé le plus longtemps ? |', '| Quel est le nombre moyen de titres par album ? |', '| Quels sont les clients ayant acheté le plus de titres différents ? |', '| Quel est le pourcentage de clients ayant acheté des titres de chaque genre ? |', '| Quel est le nombre de pattes que possède un chat ? |']
+    #clean the questions and create a list of questions
+    questions_clean = [q.replace('|', '').replace('?', '') for q in questions if q != ""]
+    print(questions_clean)
+
+    dataset = generate_dataset(questions_clean)
+    
+    df = pd.DataFrame(dataset)
+    df.to_json('data/dataset.jsonl', orient='records', lines=True)
+    print("Dataset généré avec succès !")
+    # # Exécution de la fonction pour générer un rapport
